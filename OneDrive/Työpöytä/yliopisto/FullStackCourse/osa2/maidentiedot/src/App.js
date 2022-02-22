@@ -14,10 +14,10 @@ const Filter = ({value, handleChange}) => {
 const Countries = ({countries}) => {
   const correctLength = countries.length <= 10
   if (countries.length === 1) {
+    const country = countries[0]
     return (
-    <ul>
-    <FinalCountry key={countries[0].name.common} country={countries[0]} />
-    </ul>)
+    <FinalCountry key={country.cca2} country={countries[0]} />
+    )
   } else {
     
   
@@ -26,7 +26,10 @@ const Countries = ({countries}) => {
    { 
    correctLength
    ? countries.map(country => 
+    <div>
    <Country key={country.name.common} country={country} />
+   <Button onClick={() => handleClick(country)}/>
+   </div>
    )
    : "Too many matches, specify another filter"
    }
@@ -34,6 +37,12 @@ const Countries = ({countries}) => {
   )
   }
  }
+ const Button = ({onClick}) => {
+   return (
+     <button onClick={onClick}> Show </button>
+   )
+ }
+ 
  const FinalCountry = ({country}) => {
   return (
     <div>
@@ -44,10 +53,15 @@ const Countries = ({countries}) => {
       <ul>{Object.values(country.languages).map(lang => 
          <li>{lang}</li>
       )}</ul>
-      <img src={country.flags.png}/>
+      <img src={country.flags.png }/>
       
     </div>
     
+  )
+}
+const handleClick = (country) => {
+  return (
+    <FinalCountry key={country.name.common} country={country}/>
   )
 }
  const Country = ({country}) => {
@@ -69,6 +83,7 @@ const App = () => {
         setCountries(response.data)
       })
   }, [])
+
 
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)

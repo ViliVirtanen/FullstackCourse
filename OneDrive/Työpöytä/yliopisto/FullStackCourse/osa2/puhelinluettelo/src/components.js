@@ -1,14 +1,6 @@
 import React from "react"
 
-const Persons = ({persons}) => {
-    return (
-     <ul>
-     {persons.map(person => 
-     <Person key={person.name} person={person} />
-     )}
-   </ul>
-    )
-   }
+
    const PersonForm = (props) => {
      return (
        <form onSubmit={props.onSubmit}>
@@ -38,10 +30,26 @@ const Persons = ({persons}) => {
        </div>
      )
    }
-   const Person = ({person}) => {
+   const Person = ({person, del}) => {
      return (
-       <p>{person.name} {person.number}</p>
+       <p>{person.name} {person.number}
+        <button onClick={del}>delete</button> </p>
      )
    }
-
-   export {Person,Filter,PersonForm,Persons }
+   const Notification = ({ message, error }) => {
+    if (message === '') {
+      return null
+    } else if (error) {
+      return (
+        <div className="error">
+          {message}
+        </div>
+      )
+    }
+     return (
+      <div className="notif">
+        {message}
+      </div>
+    )
+  }
+   export {Person,Filter,PersonForm, Notification}
