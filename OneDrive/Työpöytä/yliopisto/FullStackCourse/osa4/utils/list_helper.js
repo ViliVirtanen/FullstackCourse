@@ -1,9 +1,12 @@
-
+const User = require('../models/user')
 
 const dummy = (blogs) => {
     return 1
   }
-
+  const usersInDb = async () => {
+    const users = await User.find({})
+    return users.map(u => u.toJSON())
+  }
 const totalLikes = (blogs) => {
     let likes = 0
     blogs.forEach(element => {
@@ -89,5 +92,6 @@ const mostLikes = (blogs) => {
     totalLikes,
     favoriteBlog,
     mostBlogs,
+    usersInDb,
     mostLikes
   }
