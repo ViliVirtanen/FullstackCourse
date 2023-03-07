@@ -21,6 +21,29 @@ const create = async newObject => {
   return response.data
 }
 
+const deletePost = async (blog, user) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  if (blog.user.username === user.username && window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+    await axios.delete(`${baseUrl}/${blog.id}`, config)
+  }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, setToken }
+}
+
+const addLike = async blog => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const obj = {
+    likes: blog.likes,
+    author: blog.author,
+    title: blog.title,
+    url: blog.url
+  }
+
+  const response = await axios.put(`${baseUrl}/${blog.id}`, obj ,config)
+  return response.data
+}
+
+export default { getAll, create, setToken, addLike, deletePost }

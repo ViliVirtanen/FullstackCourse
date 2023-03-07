@@ -17,3 +17,13 @@
     padding: 10px;
     margin-bottom: 10px;
   }
+
+  .blog {
+    display: flex;
+    border-style: solid;
+    border-radius: 1px;
+  }
+
+  .inner {
+    flex-direction: column;
+  }
